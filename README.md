@@ -73,7 +73,7 @@ require 'aliyun/vms'
 可以改为 Github 安装源，例如 Rails Gemfile 文件引用可以改为下面格式，即可正确安装。
 
 ```ruby
-gem 'aliyun-vms', '0.0.1', git: 'https://github.com/kejincan0527/aliyun-vms.git'
+gem 'aliyun-vms', '0.0.2', git: 'https://github.com/kejincan0527/aliyun-vms.git'
 ```
 
 ## Usage 使用

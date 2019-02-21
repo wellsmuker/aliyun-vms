@@ -3,6 +3,8 @@ require "openssl"
 require "base64"
 require 'typhoeus'
 require "erb"
+require "securerandom"
+
 include ERB::Util
 
 module Aliyun
@@ -85,7 +87,7 @@ module Aliyun
       def sign(key_secret, coded_params)
         key = key_secret + '&'
         signature = 'GET' + '&' + encode('/') + '&' +  encode(coded_params)
-        sign = Base64.encode64("#{OpenSSL::HMAC.digest('sha1',key, signature)}")
+        sign = Base64.encode64("#{OpenSSL::HMAC.digest('sha1', key, signature)}")
         encode(sign.chomp)  # 通过chomp去掉最后的换行符 LF
       end
 
@@ -99,9 +101,10 @@ module Aliyun
         Time.now.utc.strftime("%FT%TZ")
       end
 
-      # 生成语音唯一标识码，采用到微秒的时间戳
+      # 生成每次请求唯一的防重放攻击，
       def seed_signature_nonce
-        Time.now.utc.strftime("%Y%m%d%H%M%S%L")
+        # Time.now.utc.strftime("%Y%m%d%H%M%S%L")
+        SecureRandom.uuid
       end
 
       # 测试参数未编码时生成的字符串是否正确（多一道保险）
