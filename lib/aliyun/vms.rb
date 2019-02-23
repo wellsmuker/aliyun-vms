@@ -16,12 +16,12 @@ module Aliyun
       def initialize
         @access_key_secret = ''
         @access_key_id = ''
-        @action = ''
-        @format = ''
-        @region_id = ''
-        @signature_method = ''
-        @signature_version = ''
-        @version = ''
+        @action = 'SingleCallByTts'
+        @format = 'XML'
+        @region_id = 'cn-hangzhou'
+        @signature_method = 'HMAC-SHA1'
+        @signature_version = '1.0'
+        @version = '2017-05-25'
       end
     end
 

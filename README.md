@@ -73,7 +73,7 @@ require 'aliyun/vms'
 可以改为 Github 安装源，例如 Rails Gemfile 文件引用可以改为下面格式，即可正确安装。
 
 ```ruby
-gem 'aliyun-vms', '0.0.2', git: 'https://github.com/kejincan0527/aliyun-vms.git'
+gem 'aliyun-vms', '0.0.3', git: 'https://github.com/kejincan0527/aliyun-vms.git'
 ```
 
 ## Usage 使用
@@ -95,17 +95,16 @@ $ require 'aliyun/vms'
 参数设置: 
 
 ```ruby
-$ Aliyun::Vms.configure do |config|
+> Aliyun::Vms.configure do |config|
     config.access_key_secret = ACCESS_KEY_SECRET    # 阿里云接入密钥，在阿里云控制台申请
     config.access_key_id = ACCESS_KEY_ID            # 阿里云接入 ID, 在阿里云控制台申请
-    config.action = 'SingleCallByTts'               # 默认设置
     config.format = 'XML'                           # 语音推送返回信息格式，可以填写 'JSON'或者'XML'
-    config.region_id = 'cn-hangzhou'                # 默认设置，如果没有特殊需要，可以不改      
+    config.region_id = 'cn-hangzhou'                # 默认设置，如果没有特殊需要，可以不改
+    config.action = 'SingleCallByTts'               # 默认设置
     config.signature_method = 'HMAC-SHA1'           # 加密算法，默认设置
     config.signature_version = '1.0'                # 签名版本，默认设置，不用修改
     config.version = '2017-05-25'                   # 服务版本，默认设置，不用修改
   end
-
 ```
 返回
 
@@ -138,14 +137,9 @@ config/initializers/aliyun-vms.rb
 
 ```ruby
 Aliyun::Vms.configure do |config|
-  config.access_key_secret = ACCESS_KEY_SECRET    # 阿里云接入密钥，在阿里云控制台申请
-  config.access_key_id = ACCESS_KEY_ID            # 阿里云接入 ID, 在阿里云控制台申请
-  config.action = 'SingleCallByTts'               # 默认设置
-  config.format = 'XML'                           # 语音推送返回信息格式，可以填写 'JSON'或者'XML'
-  config.region_id = 'cn-hangzhou'                # 默认设置，如果没有特殊需要，可以不改      
-  config.signature_method = 'HMAC-SHA1'           # 加密算法，默认设置
-  config.signature_version = '1.0'                # 签名版本，默认设置，不用修改
-  config.version = '2017-05-25'                   # 服务版本，默认设置，不用修改
+  config.access_key_secret = ACCESS_KEY_SECRET
+  config.access_key_id = ACCESS_KEY_ID
+  config.format = 'JSON'
 end
 ```
 之后，重新启动 Rails，加载配置。
@@ -153,32 +147,16 @@ end
 #### 第二步: 
 
 在 Rails 应用中调用语音发送代码: 
-
-```ruby
-Aliyun::Vms.send(called_show_number, called_number, tts_code, tts_param, out_id)
-```    
-
-参数说明: 
-
-1. called_show_number: 被叫显示号码，必须为字符型，例如 '057112345678'；
-2. called_number: 接收语音的手机号，必须为字符型，例如 '1234567890'；
-3. tts\_code:  语音模版代码，必须为字符型，申请开通语音服务后，由阿里云提供，例如 'TTS_12345678'；
-4. tts\_param: 请求字符串，向语音模版提供参数，必须是转为字符串的json格式对象，例如 '{"code":"666666", "product":"测试网站" }'；
-5. out_id: 外部流水扩展字段，必须为字符型，可以为空。
-
-特别说明: 
-
-在程序中可以先用 HASH 组织 tts\_param 内容，再使用 to_json 方法转换为 json 格式字符串，例如: 
-
 ```ruby
 ...
 called_show_number = '057112345678'
 called_number = '1234567890'
 tts_code = 'TTS_12345678'
+# 在程序中可以先用 HASH 组织 tts\_param 内容，再使用 to_json 方法转换为 json 格式字符串，例如: 
 tts_param = {"code"=>"666666", "product"=>"测试网站" }.to_json
 Aliyun::Vms.send(called_show_number, called_number, tts_code, tts_param)
 ...
-```    
+```       
 
 ## Development 开发
 

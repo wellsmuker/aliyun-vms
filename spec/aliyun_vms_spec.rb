@@ -1,5 +1,4 @@
-require 'aliyun/vms'
-describe Aliyun::Vms do
+RSpec.describe Aliyun::Vms do
 
   describe "#top test" do
     before do
@@ -25,7 +24,8 @@ describe Aliyun::Vms do
         'Timestamp' => '2017-07-12T02:42:19Z',
         'OutId'	=> '123'
       }
-      spect_output = 'http://dyvmsapi.aliyuncs.com/?Signature=zJDF%2BLrzhj%2FThnlvIToysFRq6t4%3D&AccessKeyId=testId&Action=SingleCallByTts&Format=XML&OutId=123&CalledShowNumber=057112345678&CalledNumber=15300000001&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&TtsCode=TTS_158490013&TtsParam=%7B%22customer%22%3A%22test%22%7D&Timestamp=2017-07-12T02%3A42%3A19Z&Version=2017-05-25'
+      spect_output = 'http://dyvmsapi.aliyuncs.com/?Signature=ffkoOu1jggtI3SzACYAhpRKMXIU%3D&AccessKeyId=testId&Action=SingleCallByTts&CalledNumber=15300000001&CalledShowNumber=057112345678&Format=XML&OutId=123&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&Timestamp=2017-07-12T02%3A42%3A19Z&TtsCode=TTS_158490013&TtsParam=%7B%22customer%22%3A%22test%22%7D&Version=2017-05-25'
+
       expect(Aliyun::Vms.get_url(user_params)).to eql(spect_output)
     end
   end
@@ -62,7 +62,7 @@ describe Aliyun::Vms do
         'Timestamp' => '2017-07-12T02:42:19Z',
         'OutId'	=> '123'
       }
-      spect_output = 'AccessKeyId=testId&Action=SingleCallByTts&Format=XML&OutId=123&CalledShowNumber=057112345678&CalledNumber=15300000001&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&TtsCode=TTS_158490013&TtsParam={"customer":"test"}&Timestamp=2017-07-12T02:42:19Z&Version=2017-05-25'
+      spect_output = 'AccessKeyId=testId&Action=SingleCallByTts&CalledNumber=15300000001&CalledShowNumber=057112345678&Format=XML&OutId=123&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&Timestamp=2017-07-12T02:42:19Z&TtsCode=TTS_158490013&TtsParam={"customer":"test"}&Version=2017-05-25'
 
       expect(Aliyun::Vms.test_query_string(method_input)).to eql(spect_output)
     end
@@ -94,7 +94,8 @@ describe Aliyun::Vms do
         'OutId'	=> '123'
       }
 
-      spect_output = 'AccessKeyId=testId&Action=SingleCallByTts&Format=XML&OutId=123&CalledShowNumber=057112345678&CalledNumber=15300000001&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&TtsCode=TTS_158490013&TtsParam={"customer":"test"}&Timestamp=2017-07-12T02:42:19Z&Version=2017-05-25'
+      spect_output = "AccessKeyId=testId&Action=SingleCallByTts&CalledNumber=15300000001&CalledShowNumber=057112345678&Format=XML&OutId=123&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&Timestamp=2017-07-12T02:42:19Z&TtsCode=TTS_158490013&TtsParam={\"customer\":\"test\"}&Version=2017-05-25"
+      
       get_params = Aliyun::Vms.get_params(user_params)
       expect(Aliyun::Vms.test_query_string(get_params)).to eql(spect_output)
     end
@@ -118,7 +119,7 @@ describe Aliyun::Vms do
       'OutId'	=> '123'
     }
 
-    spect_output = 'AccessKeyId=testId&Action=SingleCallByTts&Format=XML&OutId=123&CalledShowNumber=057112345678&CalledNumber=15300000001&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&TtsCode=TTS_158490013&TtsParam=%7B%22customer%22%3A%22test%22%7D&Timestamp=2017-07-12T02%3A42%3A19Z&Version=2017-05-25'
+    spect_output = 'AccessKeyId=testId&Action=SingleCallByTts&CalledNumber=15300000001&CalledShowNumber=057112345678&Format=XML&OutId=123&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&Timestamp=2017-07-12T02%3A42%3A19Z&TtsCode=TTS_158490013&TtsParam=%7B%22customer%22%3A%22test%22%7D&Version=2017-05-25'
 
     expect(Aliyun::Vms.canonicalized_query_string(method_input)).to eql(spect_output)
   end
@@ -141,7 +142,7 @@ describe Aliyun::Vms do
       'OutId'	=> '123'
     }
     key = 'testSecret'
-    spect_output = 'zJDF%2BLrzhj%2FThnlvIToysFRq6t4%3D'
+    spect_output = 'MGL%2FGU%2BFTbcIUu7XOCcop0Z9V6A%3D'
     coded_params = 'AccessKeyId=testId&Action=SingleCallByTts&Format=XML&OutId=123&CalledShowNumber=057112345678&CalledNumber=15300000001&RegionId=cn-hangzhou&SignatureMethod=HMAC-SHA1&SignatureNonce=45e25e9b-0a6f-4070-8c85-2956eda1b466&SignatureVersion=1.0&TtsCode=TTS_158490013&TtsParam=%7B%22customer%22%3A%22test%22%7D&Timestamp=2017-07-12T02%3A42%3A19Z&Version=2017-05-25'
 
     expect(Aliyun::Vms.sign(key, coded_params)).to eql(spect_output)
